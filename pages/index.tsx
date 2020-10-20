@@ -1,9 +1,13 @@
-import { Flex, Grid, Heading } from "@chakra-ui/core";
+import { Box, Button, Flex, Grid, Icon, useColorMode } from "@chakra-ui/core";
 import { GetStaticProps } from "next";
 import Stripe from "stripe";
-import { CartProvider } from "../components/CartProvider";
 import { ProductItem } from "../components/ProductItem";
 import { stripeDB } from "../utils/stripeDB";
+import { FiShoppingCart } from "react-icons/fi";
+import { Header } from "../components/Header";
+import Link from "next/link";
+import { GradientLine } from "../components/gradientLine";
+import { Layout } from "../components/Layout";
 
 type CustomProduct = {
   productData: Stripe.Product;
@@ -15,28 +19,33 @@ type Props = {
 };
 
 const Home: React.FC<Props> = ({ updatedProducts }) => {
-  console.log(updatedProducts);
-  return (
-    <CartProvider>
-      <Flex flexDir="column" align="center" justify="center" w="full" h="full">
-        <Heading size="xl" m={8}>
-          Sticker Kingdom
-        </Heading>
+  const { colorMode, toggleColorMode } = useColorMode();
 
-        <Grid
-          gridTemplateColumns="repeat(auto-fit, minmax(250px, 1fr))"
-          margin="auto"
-          w="90%"
-          maxW="980px"
-          py={8}
-        >
-          {updatedProducts &&
-            updatedProducts.map((product: CustomProduct) => (
-              <ProductItem key={product.productData.id} productData={product} />
-            ))}
-        </Grid>
-      </Flex>
-    </CartProvider>
+  return (
+    <Layout>
+      <GradientLine />
+
+      <Header>
+        <Link href="/cart">
+          <Button _hover={{ color: "blue.500" }} mx={4}>
+            <Icon as={FiShoppingCart} />
+          </Button>
+        </Link>
+      </Header>
+
+      <Grid
+        gridTemplateColumns="repeat(auto-fit, minmax(250px, 1fr))"
+        margin="auto"
+        w="90%"
+        maxW="980px"
+        py={8}
+      >
+        {updatedProducts &&
+          updatedProducts.map((product: CustomProduct) => (
+            <ProductItem key={product.productData.id} productData={product} />
+          ))}
+      </Grid>
+    </Layout>
   );
 };
 
@@ -57,8 +66,6 @@ export const getStaticProps: GetStaticProps = async () => {
 
     return productWithPrice;
   });
-
-  console.log(updatedProducts);
 
   return {
     props: { updatedProducts },

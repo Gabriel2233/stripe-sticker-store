@@ -1,18 +1,17 @@
-import {
-  ThemeProvider,
-  ColorModeProvider,
-  CSSReset,
-  theme,
-} from "@chakra-ui/core";
+import { ThemeProvider, ColorModeProvider, CSSReset } from "@chakra-ui/core";
+import { CartProvider } from "../components/CartProvider";
+import { customTheme } from "../styles/theme";
 
 function MyApp({ Component, pageProps }) {
   return (
-    <ThemeProvider theme={theme}>
-      <ColorModeProvider value="light">
-        <CSSReset />
-        <Component {...pageProps} />
-      </ColorModeProvider>
-    </ThemeProvider>
+    <CartProvider>
+      <ThemeProvider theme={customTheme}>
+        <ColorModeProvider value="light">
+          <CSSReset />
+          <Component {...pageProps} />
+        </ColorModeProvider>
+      </ThemeProvider>
+    </CartProvider>
   );
 }
 
