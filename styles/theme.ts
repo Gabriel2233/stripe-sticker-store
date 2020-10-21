@@ -23,7 +23,7 @@ export const customTheme: DefaultTheme = {
     pink: {
       ...theme.colors.pink,
       400: "#7400b8",
-      500: "6930c3",
+      500: "#6930c3",
     },
 
     blue: {

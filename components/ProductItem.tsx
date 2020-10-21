@@ -8,7 +8,7 @@ import {
   useDisclosure,
   useToast,
 } from "@chakra-ui/core";
-import { ChangeEvent, ReactNode } from "react";
+import Stripe from "stripe";
 import {
   useShoppingCart,
   formatCurrencyString,
