@@ -33,8 +33,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       payment_method_types: ["card"],
       submit_type: "pay",
       line_items,
-      cancel_url: `${process.env.SITE_URL}/cart`,
-      success_url: `${process.env.SITE_URL}/success`,
+      cancel_url: `${process.env.NEXT_PUBLIC_SITE_URL}/cart`,
+      success_url: `${process.env.NEXT_PUBLIC_SITE_URL}/success`,
     };
 
     const checkoutSession: Stripe.Checkout.Session = await stripeDB.checkout.sessions.create(

@@ -1,12 +1,4 @@
-import {
-  Box,
-  Button,
-  Flex,
-  Grid,
-  Icon,
-  Spinner,
-  useColorMode,
-} from "@chakra-ui/core";
+import { Button, Grid, Icon } from "@chakra-ui/core";
 import { GetStaticProps } from "next";
 import Stripe from "stripe";
 import { ProductItem } from "../components/ProductItem";
