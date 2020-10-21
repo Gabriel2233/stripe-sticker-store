@@ -1,4 +1,12 @@
-import { Box, Button, Flex, Grid, Icon, useColorMode } from "@chakra-ui/core";
+import {
+  Box,
+  Button,
+  Flex,
+  Grid,
+  Icon,
+  Spinner,
+  useColorMode,
+} from "@chakra-ui/core";
 import { GetStaticProps } from "next";
 import Stripe from "stripe";
 import { ProductItem } from "../components/ProductItem";
@@ -8,6 +16,7 @@ import { Header } from "../components/Header";
 import Link from "next/link";
 import { GradientLine } from "../components/gradientLine";
 import { Layout } from "../components/Layout";
+import { Footer } from "../components/Footer";
 
 type CustomProduct = {
   productData: Stripe.Product;
@@ -19,8 +28,6 @@ type Props = {
 };
 
 const Home: React.FC<Props> = ({ updatedProducts }) => {
-  const { colorMode, toggleColorMode } = useColorMode();
-
   return (
     <Layout>
       <GradientLine />
@@ -45,6 +52,7 @@ const Home: React.FC<Props> = ({ updatedProducts }) => {
             <ProductItem key={product.productData.id} productData={product} />
           ))}
       </Grid>
+      <Footer />
     </Layout>
   );
 };

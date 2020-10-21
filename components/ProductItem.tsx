@@ -72,7 +72,12 @@ export const ProductItem = ({ productData }: Props) => {
       <Text textAlign="start" w="full" pb={6} fontWeight="bolder">
         {productData.productData.name}
       </Text>
-      <Image src={productData.productData.images[0]} w={110} h={100} />
+      <Image
+        src={productData.productData.images[0]}
+        w={110}
+        h={100}
+        alt={productData.productData.name}
+      />
       <Flex w="full" align="center" justify="space-between" mt={8}>
         <Text fontWeight="bold" fontSize="26px">
           {price}

@@ -1,16 +1,28 @@
-import { Button, Flex, Grid, Heading, Icon, Spinner } from "@chakra-ui/core";
+import {
+  Button,
+  Flex,
+  Grid,
+  Heading,
+  Icon,
+  Spinner,
+  useDisclosure,
+  useToast,
+} from "@chakra-ui/core";
 import { useShoppingCart, CartEntry } from "use-shopping-cart";
 import { GradientLine } from "../components/gradientLine";
 import { Header } from "../components/Header";
 import { Layout } from "../components/Layout";
-import { FiHome } from "react-icons/fi";
+import { FiHome, FiShoppingCart } from "react-icons/fi";
 import Link from "next/link";
 import { CartItem } from "../components/CartItem";
 import { FormEvent, useState } from "react";
 import { fetchPostJSON } from "../utils/api-helpers";
+import { Footer } from "../components/Footer";
 
 const Cart = () => {
   const [loading, setLoading] = useState<boolean>(false);
+  const { onClose } = useDisclosure();
+  const toast = useToast();
 
   const {
     redirectToCheckout,
@@ -42,7 +54,14 @@ const Cart = () => {
 
       setLoading(false);
     } catch (err) {
-      alert(err.message);
+      toast({
+        title: "An error ocurred",
+        status: "error",
+        onClose,
+        duration: 3000,
+        description: err.message,
+        isClosable: true,
+      });
     }
   };
 
@@ -71,35 +90,47 @@ const Cart = () => {
       </Grid>
 
       <Flex w="70%" align="center" justify="space-between" my={10}>
-        <Heading size="md">Total amount: {formattedTotalPrice}</Heading>
-        <Button
-          w="30%"
-          p={8}
-          cursor="pointer"
-          bg="blue.500"
-          _hover={{ bg: "blue.400" }}
-          padding={6}
-          border={0}
-          borderRadius="sm"
-          color="white"
-          onClick={handleProceedToCheckout}
-        >
-          {loading ? (
-            <>
-              <Spinner
-                thickness="4px"
-                speed="0.65s"
-                emptyColor="gray.200"
-                color="blue.500"
-              />
-            </>
-          ) : (
-            <>
-              Checkout <Icon name="arrow-forward" ml={1} />
-            </>
-          )}
-        </Button>
+        {cartCount === 0 ? (
+          <Flex align="center" justify="center" w="full" flexDir="column">
+            <Icon as={FiShoppingCart} size="44px" color="gray.500" my={8} />
+            <Heading size="xl" color="gray.500" my={2}>
+              Your cart is empty.
+            </Heading>
+          </Flex>
+        ) : (
+          <>
+            <Heading size="md">Total amount: {formattedTotalPrice}</Heading>
+            <Button
+              w="30%"
+              p={8}
+              cursor="pointer"
+              bg="blue.500"
+              _hover={{ bg: "blue.400" }}
+              padding={6}
+              border={0}
+              borderRadius="sm"
+              color="white"
+              onClick={handleProceedToCheckout}
+            >
+              {loading ? (
+                <>
+                  <Spinner
+                    thickness="4px"
+                    speed="0.65s"
+                    emptyColor="gray.200"
+                    color="blue.500"
+                  />
+                </>
+              ) : (
+                <>
+                  Checkout <Icon name="arrow-forward" ml={1} />
+                </>
+              )}
+            </Button>
+          </>
+        )}
       </Flex>
+      <Footer />
     </Layout>
   );
 };

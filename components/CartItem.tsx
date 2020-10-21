@@ -49,7 +49,7 @@ export const CartItem = ({ cartData }: Props) => {
       <Text textAlign="start" w="full" pb={6} fontWeight="bolder">
         {cartData.name}
       </Text>
-      <Image src={cartData.image} w={110} h={100} />
+      <Image src={cartData.image} alt={cartData.name} w={110} h={100} />
       <Flex w="full" align="center" justify="space-between" mt={8}>
         <Text fontWeight="bold" fontSize="26px">
           {cartData.formattedValue}

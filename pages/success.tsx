@@ -3,6 +3,7 @@ import { GradientLine } from "../components/gradientLine";
 import { Header } from "../components/Header";
 import { Layout } from "../components/Layout";
 import Link from "next/link";
+import { Footer } from "../components/Footer";
 
 const Success = () => {
   return (
@@ -27,6 +28,7 @@ const Success = () => {
           </Button>
         </Link>
       </Flex>
+      <Footer />
     </Layout>
   );
 };
